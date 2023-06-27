@@ -21,21 +21,19 @@ class Application(ABC):
         self.clock = pygame.time.Clock()
         
     @abstractmethod
-    def init(self): ...
-        
-    @abstractmethod
     def update(self): ...
     
     @abstractmethod
     def draw(self): ...
     
-    def run(self) -> None:        
+    def run(self) -> None:
         while 1:
-            if pygame.QUIT in map(lambda x: x.type, pygame.event.get()):
-                pygame.quit()
-                exit()
+            self.update(pygame.event.get())
             
-            self.update()
+            self.screen.fill((255, 255, 255))
+            
             self.draw()
+            
+            pygame.display.update()
 
             self.clock.tick(self.fps)
