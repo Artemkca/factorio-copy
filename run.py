@@ -1,5 +1,6 @@
-from Game import GameEngine
+from FactorioCopy.Engine import Engine
 
 if __name__ == "__main__":
-    app = GameEngine()
-    app.run()
+    engine = Engine()
+    
+    engine.run()

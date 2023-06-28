@@ -1,12 +1,12 @@
-from abc import abstractmethod, ABC
+from abc import abstractmethod
+
+from .GameObject import GameObject
 
 import pygame
 
 
-class Application(ABC):
-    def __init__(self, width=600, height=400, fps=60) -> None:        
-        super().__init__()
-        
+class Application(GameObject):
+    def __init__(self, width, height, fps) -> None:
         self.fps = fps
         self.width = width
         self.height = height
@@ -19,21 +19,23 @@ class Application(ABC):
         ))
         
         self.clock = pygame.time.Clock()
-        
+    
     @abstractmethod
     def update(self): ...
     
     @abstractmethod
     def draw(self): ...
     
+    def _draw(self):
+        self.screen.fill((255, 255, 255))
+        
+        self.draw()
+        
+        pygame.display.update()
+    
     def run(self) -> None:
         while 1:
-            self.update(pygame.event.get())
-            
-            self.screen.fill((255, 255, 255))
-            
-            self.draw()
-            
-            pygame.display.update()
+            self.update()
+            self._draw()
 
             self.clock.tick(self.fps)
